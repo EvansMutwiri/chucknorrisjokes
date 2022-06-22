@@ -1,14 +1,25 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {useEffect} from 'react';
+import {moveToHomeScreen} from './src/navigation';
 
 export default function App() {
-  return <SafeAreaView style={styles.container} />;
+  useEffect(() => {
+    setTimeout(() => {
+      moveToHomeScreen();
+    }, 6000);
+  }, []);
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text>Splash</Text>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#BCDCDA',
     alignItems: 'center',
     justifyContent: 'center',
   },

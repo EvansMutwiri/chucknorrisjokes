@@ -1,12 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 export default function App() {
-  return (
-    <View>
-      <Text>App</Text>
-    </View>
-  );
+  return <SafeAreaView style={styles.container} />;
 }
 
 const styles = StyleSheet.create({

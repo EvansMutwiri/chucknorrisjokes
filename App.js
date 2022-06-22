@@ -7,12 +7,12 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       moveToHomeScreen();
-    }, 6000);
+    }, 3000);
   }, []);
   return (
     <SafeAreaView style={styles.container}>
       <Image source={require('./src/static/img/ranger.png')} />
-      <Text style={styles.splash}>Splash</Text>
+      <Image source={require('./src/static/img/APPROVED.png')} />
     </SafeAreaView>
   );
 }
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#BCDCDA',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 0,
   },
   splash: {
-    fontFamily: 'Roboto',
     fontSize: 30,
     fontWeight: 'bold',
   },

@@ -71,9 +71,17 @@ export function moveToHomeScreen() {
         ],
         options: {
           topBar: {
-            visible: true,
-            backButton: {
-              visible: false,
+            visible: false,
+            height: 0,
+            title: {
+              text: 'Home',
+              alignment: 'center',
+              color: '#000',
+            },
+            background: {
+              color: '#BCDCDA',
+              translucent: true,
+              blur: false,
             },
           },
         },

@@ -7,7 +7,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       moveToHomeScreen();
-    }, 6000);
+    }, 1500);
   }, []);
   return (
     <SafeAreaView style={styles.container}>

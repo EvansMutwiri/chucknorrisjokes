@@ -1,3 +1,3 @@
-import { goToAppRootInitializer } from "./src/navigation";
+import {goToAppRootInitializer} from './src/navigation';
 
 goToAppRootInitializer();

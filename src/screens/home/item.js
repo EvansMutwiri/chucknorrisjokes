@@ -86,7 +86,7 @@ const Item = () => {
   return (
     <FlatList
       data={data.value}
-      renderItem={({item}) => (
+      renderItem={({item, index}) => (
         <Box>
           <Box border="1" borderRadius="xl" marginY={2} style={styles.first}>
             <VStack space="4" divider={<Divider />}>

@@ -10,8 +10,7 @@ const home = () => {
     <NativeBaseProvider theme={theme}>
       <AppBar />
       <SafeAreaView>
-        <Toggler />
-        <Box p={4}>
+        <Box p={4} contentContainerStyle={{paddingVertical: 50}}>
           <Item />
         </Box>
       </SafeAreaView>
@@ -42,15 +41,6 @@ const AppBar = () => (
     </HStack>
   </>
 );
-
-function Toggler() {
-  return (
-    <HStack space={3} justifyContent="space-between" p={4}>
-      <Text style={styles.content}>Explicit Content</Text>
-      <Switch size="sm" />
-    </HStack>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {

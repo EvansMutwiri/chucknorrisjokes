@@ -1,6 +1,6 @@
 import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {NativeBaseProvider, Box, Switch, HStack} from 'native-base';
+import {NativeBaseProvider, Box, HStack} from 'native-base';
 import Item from './item';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {theme} from '../../utils/styles/theme';
@@ -10,8 +10,7 @@ const home = () => {
     <NativeBaseProvider theme={theme}>
       <AppBar />
       <SafeAreaView>
-        <Toggler />
-        <Box p={4}>
+        <Box p={4} contentContainerStyle={{paddingVertical: 50}}>
           <Item />
         </Box>
       </SafeAreaView>
@@ -33,6 +32,7 @@ const AppBar = () => (
       py="6"
       justifyContent="space-between"
       alignItems="center"
+      elevation={4}
       w="100%">
       {menuIcon}
       <HStack alignItems="center">
@@ -43,15 +43,6 @@ const AppBar = () => (
   </>
 );
 
-function Toggler() {
-  return (
-    <HStack space={3} justifyContent="space-between" p={4}>
-      <Text style={styles.content}>Explicit Content</Text>
-      <Switch size="sm" />
-    </HStack>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -60,8 +51,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
-    fontWeight: 'normal',
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#fff',
   },
   content: {

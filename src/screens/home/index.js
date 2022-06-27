@@ -1,6 +1,6 @@
 import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {NativeBaseProvider, Box, Switch, HStack} from 'native-base';
+import {NativeBaseProvider, Box, HStack} from 'native-base';
 import Item from './item';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {theme} from '../../utils/styles/theme';
@@ -32,6 +32,7 @@ const AppBar = () => (
       py="6"
       justifyContent="space-between"
       alignItems="center"
+      elevation={4}
       w="100%">
       {menuIcon}
       <HStack alignItems="center">
@@ -50,8 +51,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
-    fontWeight: 'normal',
+    fontSize: 24,
+    fontWeight: 'bold',
     color: '#fff',
   },
   content: {

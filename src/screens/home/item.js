@@ -1,6 +1,15 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, RefreshControl} from 'react-native';
 import React from 'react';
-import {VStack, Box, Divider, FlatList, HStack, Switch} from 'native-base';
+import {
+  VStack,
+  Box,
+  Divider,
+  FlatList,
+  HStack,
+  Switch,
+  Toast,
+  v3CompatibleTheme,
+} from 'native-base';
 import {useEffect, useState} from 'react';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
@@ -10,21 +19,26 @@ const Item = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
   const fetchData = async URL => {
-    setRefreshing(true);
-    setLoading(true);
-
-    // console.log('fetching data');
-    const response = await fetch(URL);
-    const json = await response.json();
-    setData(json);
-    console.log(json.value);
-    setRefreshing(false);
-    setLoading(false);
+    try {
+      console.log('Trying to fetch');
+      setRefreshing(true);
+      setLoading(true);
+      const response = await fetch(URL);
+      console.log('The response', response);
+      const json = await response.json();
+      console.log('Finally the json', json);
+      setData(json);
+      setRefreshing(false);
+    } catch (err) {
+      Toast.show({
+        title: err.message,
+        duration: 3000,
+      });
+    }
   };
 
   useEffect(() => {
@@ -43,7 +57,7 @@ const Item = () => {
 
           setData(
             data.map(item => {
-              item.categories === 'nerdy';
+              item.categories[0] === 'nerdy';
               return item;
             }),
           );
@@ -62,7 +76,8 @@ const Item = () => {
 
           setData(
             data.map(item => {
-              item.categories === 'explicit' || item.categories === 'nerdy';
+              item.categories[0] === 'explicit' ||
+                item.categories[0] === 'nerdy';
               return item;
             }),
           );
@@ -162,16 +177,23 @@ const Item = () => {
         <Switch onChange={toggleExplicit} />
       </HStack>
       <FlatList
+        // refresh control
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
+        }
         data={data.value}
         renderItem={({item}) => (
           <Box>
             <Box border="1" borderRadius="xl" marginY={2} style={styles.first}>
-              <VStack space="4" divider={<Divider />}>
-                <Box px="4" pt="4" style={styles.content}>
-                  {item.categories}
+              <VStack space="4">
+                <Box px="4" pt="4">
+                  {/* <Text style={styles.content} > {item.categories}<Text /> */}
+                  <Text style={styles.categories}>
+                    Category: {item.categories}
+                  </Text>
                 </Box>
                 <Box px="4">
-                  <Text style={styles.content}>{item.joke}</Text>
+                  <Text style={styles.content}>"{item.joke}"</Text>
                 </Box>
                 <Box px="4" pb="4">
                   <Text>{item.id}</Text>
@@ -189,10 +211,20 @@ const Item = () => {
 const styles = StyleSheet.create({
   first: {
     backgroundColor: '#D1E1D4',
+    paddingVertical: 4,
+    elevation: 2,
   },
   content: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
+    lineHeight: 32,
+    color: '#000',
+    textAlign: 'center',
+    letterSpacing: 1,
+  },
+  categories: {
+    fontSize: 12,
+    fontWeight: '500',
     color: '#000',
   },
 });

@@ -16,6 +16,7 @@ import {
   Toast,
   v3CompatibleTheme,
   Select,
+  Pressable,
 } from 'native-base';
 import {useEffect, useState} from 'react';
 import Floating from '../random';
@@ -91,30 +92,44 @@ const Item = () => {
         }
         data={data.value}
         renderItem={({item}) => (
-          <TouchableOpacity>
-            <Box>
-              <Box
-                border="1"
-                borderRadius="xl"
-                marginY={2}
-                style={styles.first}>
-                <VStack space="4">
-                  <Box px="4" pt="4">
-                    {/* <Text style={styles.content} > {item.categories}<Text /> */}
-                    <Text style={styles.categories}>
+          <Box width="100%" marginY={2}>
+            <Pressable>
+              {({isHovered, isFocused, isPressed}) => {
+                return (
+                  <Box
+                    shadow="3"
+                    bg={
+                      isPressed ? '#A2D4EC' : isHovered ? '#A2D4EC' : '#C5E4F3'
+                    }
+                    p="5"
+                    rounded="8"
+                    style={{
+                      transform: [
+                        {
+                          scale: isPressed ? 0.96 : 1,
+                        },
+                      ],
+                    }}>
+                    <Text
+                      color="#005885"
+                      mt="3"
+                      fontWeight="medium"
+                      fontSize="xl">
                       Category: {item.categories}
                     </Text>
+                    <Text
+                      mt="2"
+                      fontSize="xl"
+                      p="4"
+                      color="#006BA1"
+                      style={styles.content}>
+                      {item.joke}
+                    </Text>
                   </Box>
-                  <Box px="4">
-                    <Text style={styles.content}>"{item.joke}"</Text>
-                  </Box>
-                  <Box px="4" pb="4">
-                    <Text>{item.id}</Text>
-                  </Box>
-                </VStack>
-              </Box>
-            </Box>
-          </TouchableOpacity>
+                );
+              }}
+            </Pressable>
+          </Box>
         )}
         keyExtractor={item => item.id}
       />

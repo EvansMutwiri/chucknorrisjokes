@@ -48,7 +48,7 @@ const RandomJoke = () => {
         <TouchableOpacity style={styles.surface}>
           <ScrollView style={styles.scroll}>
             <Text style={styles.id}>{data.id}</Text>
-            <Text style={styles.text}>{data.joke}</Text>
+            <Text style={styles.text}>"{data.joke}"</Text>
           </ScrollView>
         </TouchableOpacity>
       </PaperProvider>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
   },
   top: {
-    backgroundColor: '#3F51B5',
+    backgroundColor: '#E3F2F9',
     elevation: 4,
     margin: 0,
   },

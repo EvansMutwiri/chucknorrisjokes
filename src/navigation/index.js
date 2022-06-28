@@ -98,3 +98,12 @@ export function moveToRandomScreen() {
     },
   });
 }
+
+export function moveToCategoriesScreen() {
+  registerScreens();
+  Navigation.push('Home', {
+    component: {
+      name: 'Categories',
+    },
+  });
+}

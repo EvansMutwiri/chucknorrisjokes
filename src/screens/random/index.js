@@ -8,6 +8,7 @@ const Floating = () => {
     <PaperProvider>
       <FAB
         icon="shuffle"
+        color="#fff"
         style={styles.fab}
         mode="flat"
         variant="tertiary"
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: '#3F51B5',
+    backgroundColor: '#d97706',
     elevation: 4,
   },
 });

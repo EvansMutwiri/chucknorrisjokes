@@ -49,44 +49,49 @@ const Item = () => {
     setIsChecked(!isChecked);
     setRefreshing(true);
     setLoading(true);
-    if (isChecked) {
-      fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]')
-        .then(() => {
-          setRefreshing(false);
-          setLoading(false);
 
-          setData(
-            data.map(item => {
-              item.categories[0] === 'nerdy';
-              return item;
-            }),
-          );
-        })
-        .finally(() => {
-          setRefreshing(false);
-          setLoading(false);
-        });
-    } else {
-      fetchData(
-        'http://api.icndb.com/jokes/random/15?limitTo=[explicit, nerdy]',
-      )
-        .then(() => {
-          setRefreshing(false);
-          setLoading(false);
+    fetchData(
+      'http://api.icndb.com/jokes/random/15?limitTo=' +
+        (isChecked ? '[nerdy]' : '[nerdy, explicit]'),
+    );
+    // if (isChecked) {
+    //   fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]')
+    //     .then(() => {
+    //       setRefreshing(false);
+    //       setLoading(false);
 
-          setData(
-            data.map(item => {
-              item.categories[0] === 'explicit' ||
-                item.categories[0] === 'nerdy';
-              return item;
-            }),
-          );
-        })
-        .finally(() => {
-          setRefreshing(false);
-          setLoading(false);
-        });
-    }
+    //       setData(
+    //         data.map(item => {
+    //           item.categories[0] === 'nerdy';
+    //           return item;
+    //         }),
+    //       );
+    //     })
+    //     .finally(() => {
+    //       setRefreshing(false);
+    //       setLoading(false);
+    //     });
+    // } else {
+    //   fetchData(
+    //     'http://api.icndb.com/jokes/random/15?limitTo=[explicit, nerdy]',
+    //   )
+    //     .then(() => {
+    //       setRefreshing(false);
+    //       setLoading(false);
+
+    //       setData(
+    //         data.map(item => {
+    //           item.categories[0] === 'explicit' ||
+    //             item.categories[0] === 'nerdy';
+    //           return item;
+    //         }),
+    //       );
+    //     })
+    //     .finally(() => {
+    //       setRefreshing(false);
+    //       setLoading(false);
+    //     });
+    // }
   };
   //end of fetchData
   // const data = {

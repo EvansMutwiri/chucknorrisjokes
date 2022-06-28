@@ -11,7 +11,10 @@ export default function App() {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require('./src/static/img/ranger.png')} />
+      <Image
+        style={styles.img}
+        source={require('./src/static/img/chuck-norris.png')}
+      />
       <Image source={require('./src/static/img/APPROVED.png')} />
     </SafeAreaView>
   );
@@ -20,7 +23,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#BCDCDA',
+    backgroundColor: '#E3F2F9',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 0,
@@ -28,5 +31,10 @@ const styles = StyleSheet.create({
   splash: {
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  img: {
+    width: '30%',
+    height: '30%',
+    resizeMode: 'contain',
   },
 });

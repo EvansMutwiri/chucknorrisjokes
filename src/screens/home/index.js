@@ -4,14 +4,16 @@ import {NativeBaseProvider, Box, HStack} from 'native-base';
 import Item from './item';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {theme} from '../../utils/styles/theme';
+import Floating from '../random';
 
 const home = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <AppBar />
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <Box p={4} contentContainerStyle={{paddingVertical: 50}}>
           <Item />
+          <Floating />
         </Box>
       </SafeAreaView>
     </NativeBaseProvider>
@@ -24,7 +26,7 @@ const menuIcon = (
   </TouchableOpacity>
 );
 const AppBar = () => (
-  <>
+  <SafeAreaView>
     <Box safeAreaTop bg="#BCDCDA" />
     <HStack
       bg="#BCDCDA"
@@ -40,7 +42,7 @@ const AppBar = () => (
       </HStack>
       <HStack />
     </HStack>
-  </>
+  </SafeAreaView>
 );
 
 const styles = StyleSheet.create({

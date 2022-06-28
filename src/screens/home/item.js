@@ -11,6 +11,7 @@ import {
   v3CompatibleTheme,
 } from 'native-base';
 import {useEffect, useState} from 'react';
+import Floating from '../random';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
 
@@ -176,7 +177,7 @@ const Item = () => {
   // };
 
   return (
-    <>
+    <VStack>
       <HStack space={3} justifyContent="space-between" p={4}>
         <Text style={styles.content}>Explicit Content</Text>
         <Switch onChange={toggleExplicit} />
@@ -209,7 +210,7 @@ const Item = () => {
         )}
         keyExtractor={item => item.id}
       />
-    </>
+    </VStack>
   );
 };
 
@@ -231,6 +232,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     color: '#000',
+  },
+  fab: {
+    position: 'absolute',
+    right: 16,
+    bottom: 16,
   },
 });
 

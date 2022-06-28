@@ -1,5 +1,5 @@
 import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {NativeBaseProvider, Box, HStack} from 'native-base';
 import Item from './item';
 import Icon from 'react-native-vector-icons/Ionicons';

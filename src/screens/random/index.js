@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
 import {Provider as PaperProvider, FAB} from 'react-native-paper';
+import {moveToRandomScreen} from '../../navigation';
 
 const Floating = () => {
   return (
@@ -8,9 +9,12 @@ const Floating = () => {
       <FAB
         icon="shuffle"
         style={styles.fab}
-        elevation={1}
+        mode="flat"
+        variant="tertiary"
+        size="large"
         onPress={() => {
-          console.log('Pressed');
+          //   console.log('Pressed');
+          moveToRandomScreen();
         }}
       />
     </PaperProvider>

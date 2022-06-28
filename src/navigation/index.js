@@ -4,7 +4,7 @@ import {Navigation} from 'react-native-navigation';
 const setAppDefaultOptions = () =>
   Navigation.setDefaultOptions({
     topBar: {
-      elevation: 0,
+      elevation: 1,
       backgroundColor: '#fff',
       leftButtonColor: 'black',
       barStyle: 'default',
@@ -86,6 +86,15 @@ export function moveToHomeScreen() {
           },
         },
       },
+    },
+  });
+}
+
+export function moveToRandomScreen() {
+  registerScreens();
+  Navigation.push('Home', {
+    component: {
+      name: 'Random',
     },
   });
 }

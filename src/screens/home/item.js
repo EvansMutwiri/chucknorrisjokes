@@ -1,4 +1,5 @@
 import {View, Text, StyleSheet, RefreshControl} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import React from 'react';
 import {
   VStack,
@@ -11,6 +12,7 @@ import {
   v3CompatibleTheme,
 } from 'native-base';
 import {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
 
@@ -28,21 +30,48 @@ const Item = () => {
       setRefreshing(true);
       setLoading(true);
       const response = await fetch(URL);
-      console.log('The response', response);
+      // console.log('The response', response);
       const json = await response.json();
-      console.log('Finally the json', json);
-      setData(json);
+      // console.log('Finally the json', json);
+      // setData(json);
+
+      //async storage
+      try {
+        await AsyncStorage.setItem('data', JSON.stringify(json));
+        console.log('Saved to async storage');
+      } catch (error) {
+        console.log('Error saving data', error);
+      }
+
+      // setData(AsyncStorage.getItem('data'));
       setRefreshing(false);
     } catch (err) {
       Toast.show({
         title: err.message,
         duration: 3000,
       });
+      setRefreshing(false);
     }
   };
 
   useEffect(() => {
-    fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy, explicit]');
+    fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]');
+
+    //get item from async storage
+    let getItem = async () => {
+      try {
+        const value = await AsyncStorage.getItem('data');
+        if (value !== null) {
+          setData(JSON.parse(value));
+          setLoading(false);
+          setRefreshing(false);
+        }
+      } catch (error) {
+        console.log('Error getting data', error);
+        setRefreshing(false);
+      }
+    };
+    getItem();
   }, []);
 
   const toggleExplicit = () => {
@@ -50,22 +79,26 @@ const Item = () => {
     setRefreshing(true);
     setLoading(true);
     if (isChecked) {
-      fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]')
-        .then(() => {
-          setRefreshing(false);
-          setLoading(false);
+      NetInfo.fetch().then(state => {
+        //if network is connected fetch from api else alert message
+        if (state.isConnected) {
+          fetchData(
+            'http://api.icndb.com/jokes/random/15?limitTo=[nerdy]',
+          ).then(() => {
+            setRefreshing(false);
+            setLoading(false);
 
-          setData(
-            data.map(item => {
-              item.categories[0] === 'nerdy';
-              return item;
-            }),
-          );
-        })
-        .finally(() => {
+            setData(data);
+          });
+        } else {
+          Toast.show({
+            title: 'No internet connection',
+            duration: 3000,
+          });
           setRefreshing(false);
           setLoading(false);
-        });
+        }
+      });
     } else {
       fetchData(
         'http://api.icndb.com/jokes/random/15?limitTo=[explicit, nerdy]',
@@ -74,13 +107,9 @@ const Item = () => {
           setRefreshing(false);
           setLoading(false);
 
-          setData(
-            data.map(item => {
-              item.categories[0] === 'explicit' ||
-                item.categories[0] === 'nerdy';
-              return item;
-            }),
-          );
+          // setData(AsyncStorage.getItem('data'));
+          // setData(JSON.parse(AsyncStorage.getItem('data')));
+
         })
         .finally(() => {
           setRefreshing(false);

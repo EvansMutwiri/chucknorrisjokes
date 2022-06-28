@@ -1,25 +1,15 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  RefreshControl,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, StyleSheet, RefreshControl} from 'react-native';
 import React from 'react';
 import {
   VStack,
   Box,
-  Divider,
   FlatList,
   HStack,
   Switch,
   Toast,
-  v3CompatibleTheme,
-  Select,
   Pressable,
 } from 'native-base';
 import {useEffect, useState} from 'react';
-import Floating from '../random';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
 
@@ -31,19 +21,13 @@ const Item = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
-  //selector example
-  const [language, setLanguage] = useState('key0');
-  const [languages, setLanguages] = useState(['ENGLISH', 'SWAHILI', 'KIKUYU']);
-
   const fetchData = async URL => {
     try {
       console.log('Trying to fetch');
       setRefreshing(true);
       setLoading(true);
       const response = await fetch(URL);
-      console.log('The response', response);
       const json = await response.json();
-      console.log('Finally the json', json);
       setData(json);
       setRefreshing(false);
     } catch (err) {
@@ -75,17 +59,8 @@ const Item = () => {
         <Text style={styles.content}>Explicit Content</Text>
         <Switch onChange={toggleExplicit} />
       </HStack>
-      {/* <Select
-        placeholder="Mode of payment"
-        selectedValue={language}
-        width={150}
-        onValueChange={itemValue => setLanguage(itemValue)}>
-        <Select.Item selectedValue label="ONE" value="key0" />
-        {languages.map(language => (
-          <Select.Item label={language} value={language} />
-        ))}
-      </Select> */}
       <FlatList
+        showsVerticalScrollIndicator={false}
         // refresh control
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={fetchData} />

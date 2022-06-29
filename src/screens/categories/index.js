@@ -75,7 +75,11 @@ const Categories = () => {
             marginY={2}
             onValueChange={itemValue => fetchByCategory(itemValue)}>
             {categories.map(category => (
-              <Select.Item label={category} value={category} />
+              <Select.Item
+                label={category}
+                value={category}
+                key={categories.indexOf(category)}
+              />
             ))}
           </Select>
           <FlatList
@@ -106,7 +110,7 @@ const Categories = () => {
                           ],
                         }}>
                         <Text
-                          color="#005885"
+                          color="#000"
                           mt="3"
                           fontWeight="medium"
                           fontSize="xl">

@@ -2,7 +2,6 @@ import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {NativeBaseProvider, Box, HStack, Button} from 'native-base';
 import Item from './item';
-import {theme} from '../../utils/styles/theme';
 import Floating from '../random';
 import {Provider as PaperProvider, Appbar} from 'react-native-paper';
 import {moveToCategoriesScreen} from '../../navigation';

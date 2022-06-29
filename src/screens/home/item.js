@@ -11,8 +11,14 @@ import {
 } from 'native-base';
 import {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
+
+NetInfo.addEventListener(state => {
+  console.log('Connection type', state.type);
+  console.log('Is connected?', state.isConnected);
+});
 
 const Item = () => {
   //initial state is empty array
@@ -91,17 +97,28 @@ const Item = () => {
     fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]');
     fetchTotal('http://api.icndb.com/jokes/count');
     // getItem();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleExplicit = () => {
-    setIsChecked(!isChecked);
-    setRefreshing(true);
-    setLoading(true);
+    //Check if network is online
+    NetInfo.fetch().then(state => {
+      if (state.isConnected) {
+        setIsChecked(!isChecked);
+        setRefreshing(true);
+        setLoading(true);
 
-    fetchData(
-      'http://api.icndb.com/jokes/random/15?limitTo=' +
-        (isChecked ? '[nerdy]' : '[nerdy, explicit]'),
-    );
+        fetchData(
+          'http://api.icndb.com/jokes/random/15?limitTo=' +
+            (isChecked ? '[nerdy]' : '[nerdy, explicit]'),
+        );
+      } else {
+        Toast.show({
+          title: 'No internet connection',
+          duration: 3000,
+        });
+      }
+    });
   };
 
   return (

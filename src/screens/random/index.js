@@ -2,6 +2,8 @@ import {StyleSheet} from 'react-native';
 import React from 'react';
 import {Provider as PaperProvider, FAB} from 'react-native-paper';
 import {moveToRandomScreen} from '../../navigation';
+import NetInfo from '@react-native-community/netinfo';
+import {Toast} from 'native-base';
 
 const Floating = () => {
   return (
@@ -15,7 +17,18 @@ const Floating = () => {
         size="large"
         onPress={() => {
           //   console.log('Pressed');
-          moveToRandomScreen();
+
+          NetInfo.fetch().then(state => {
+            if (state.isConnected) {
+              moveToRandomScreen();
+            } else {
+              Toast.show({
+                title: 'No internet connection',
+                duration: 3000,
+              });
+              return;
+            }
+          });
         }}
       />
     </PaperProvider>

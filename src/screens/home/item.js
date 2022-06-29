@@ -25,7 +25,6 @@ const Item = () => {
 
   const fetchData = async URL => {
     try {
-      console.log('Trying to fetch');
       setRefreshing(true);
       setLoading(true);
       const response = await fetch(URL);
@@ -34,6 +33,8 @@ const Item = () => {
       storeData(json);
       setRefreshing(false);
     } catch (err) {
+      setRefreshing(false);
+      setLoading(false);
       Toast.show({
         title: err.message,
         duration: 3000,

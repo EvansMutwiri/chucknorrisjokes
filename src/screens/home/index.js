@@ -2,7 +2,6 @@ import {Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {NativeBaseProvider, Box, HStack, Button} from 'native-base';
 import Item from './item';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {theme} from '../../utils/styles/theme';
 import Floating from '../random';
 import {Provider as PaperProvider, Appbar} from 'react-native-paper';
@@ -10,14 +9,14 @@ import {moveToCategoriesScreen} from '../../navigation';
 
 const home = () => {
   return (
-    <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider>
       <PaperProvider>
         <Appbar.Header style={styles.top}>
           <Appbar.Content title="Home" />
           <Appbar.Action icon="apps" onPress={moveToCategoriesScreen} />
         </Appbar.Header>
         <SafeAreaView style={styles.container}>
-          <Box p={4} contentContainerStyle={{paddingVertical: 50}}>
+          <Box p={4}>
             <Item />
             <Floating />
           </Box>

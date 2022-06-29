@@ -1,6 +1,6 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {Provider as PaperProvider, Surface, Appbar} from 'react-native-paper';
+import {Provider as PaperProvider, Appbar} from 'react-native-paper';
 import {moveToHomeScreen} from '../../navigation';
 import {useEffect, useState} from 'react';
 // import {fetchData} from '../../utils/fetchData';

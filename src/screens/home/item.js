@@ -10,6 +10,7 @@ import {
   Pressable,
 } from 'native-base';
 import {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // const URL = 'http://api.icndb.com/jokes/random/15?limitTo=[nerdy,explicit]';
 
@@ -29,11 +30,40 @@ const Item = () => {
       setLoading(true);
       const response = await fetch(URL);
       const json = await response.json();
-      setData(json);
+      // setData(json);
+      storeData(json);
       setRefreshing(false);
     } catch (err) {
       Toast.show({
         title: err.message,
+        duration: 3000,
+      });
+    } finally {
+      getItem();
+    }
+  };
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('data', jsonValue);
+    } catch (e) {
+      Toast.show({
+        title: e.message,
+        duration: 3000,
+      });
+    }
+  };
+
+  let getItem = async () => {
+    try {
+      const value = await AsyncStorage.getItem('data');
+      if (value !== null) {
+        setData(JSON.parse(value));
+      }
+    } catch (e) {
+      Toast.show({
+        title: e.message,
         duration: 3000,
       });
     }
@@ -59,6 +89,7 @@ const Item = () => {
   useEffect(() => {
     fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]');
     fetchTotal('http://api.icndb.com/jokes/count');
+    // getItem();
   }, []);
 
   const toggleExplicit = () => {

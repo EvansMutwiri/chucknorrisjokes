@@ -14,7 +14,6 @@ const RandomJoke = () => {
 
   const fetchData = async URL => {
     try {
-      console.log('Trying to fetch');
       setRefreshing(true);
       setLoading(true);
       const response = await fetch(URL);
@@ -24,7 +23,7 @@ const RandomJoke = () => {
       const value = json.value;
 
       setData(value);
-      console.log('The value: ', value);
+
       setRefreshing(false);
     } catch (err) {
       Toast.show({

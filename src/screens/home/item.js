@@ -17,6 +17,7 @@ const Item = () => {
   //initial state is empty array
 
   const [data, setData] = useState([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -38,8 +39,26 @@ const Item = () => {
     }
   };
 
+  const handleRefresh = () => {
+    fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]');
+  };
+
+  const fetchTotal = async URL => {
+    try {
+      const response = await fetch(URL);
+      const json = await response.json();
+      setTotal(json.value);
+    } catch (err) {
+      Toast.show({
+        title: err.message,
+        duration: 3000,
+      });
+    }
+  };
+
   useEffect(() => {
     fetchData('http://api.icndb.com/jokes/random/15?limitTo=[nerdy]');
+    fetchTotal('http://api.icndb.com/jokes/count');
   }, []);
 
   const toggleExplicit = () => {
@@ -56,6 +75,7 @@ const Item = () => {
   return (
     <VStack>
       <HStack space={3} justifyContent="space-between" p={4}>
+        <Text style={styles.content}>Count: {total}</Text>
         <Text style={styles.content}>Explicit Content</Text>
         <Switch onChange={toggleExplicit} />
       </HStack>
@@ -63,7 +83,7 @@ const Item = () => {
         showsVerticalScrollIndicator={false}
         // refresh control
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         data={data.value}
         renderItem={({item}) => (

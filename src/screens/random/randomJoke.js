@@ -43,7 +43,7 @@ const RandomJoke = () => {
         <Appbar.Header style={styles.top}>
           <Appbar.BackAction onPress={moveToHomeScreen} />
           <Appbar.Content title="Title" />
-          <Appbar.Action icon="dots-vertical" onPress={console.log('cccc')} />
+          <Appbar.Action icon="dots-vertical" />
         </Appbar.Header>
         <TouchableOpacity style={styles.surface}>
           <ScrollView style={styles.scroll}>

@@ -61,7 +61,7 @@ const Categories = () => {
       <PaperProvider>
         <Appbar.Header style={styles.top}>
           <Appbar.BackAction onPress={moveToHomeScreen} />
-          <Appbar.Content title={selected} />
+          <Appbar.Content title={selected ? selected : 'Categories'} />
         </Appbar.Header>
 
         <SafeAreaView style={styles.container}>

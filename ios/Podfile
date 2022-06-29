@@ -19,6 +19,8 @@ target 'chucknorrisjokes' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'chucknorrisjokesTests' do
     inherit! :complete
     # Pods for testing
